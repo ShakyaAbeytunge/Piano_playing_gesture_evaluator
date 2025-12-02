@@ -3,7 +3,7 @@ import mediapipe as mp
 
 # Initialize MediaPipe solutions
 mp_hands = mp.solutions.hands
-# mp_pose = mp.solutions.pose
+mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 
 # Create instances
@@ -13,10 +13,10 @@ hands = mp_hands.Hands(
     min_tracking_confidence=0.5
 )
 
-# pose = mp_pose.Pose(
-#     min_detection_confidence=0.5,
-#     min_tracking_confidence=0.5
-# )
+pose = mp_pose.Pose(
+    min_detection_confidence=0.5,
+    min_tracking_confidence=0.5
+)
 
 # Open the camera (0 = default webcam)
 cap = cv2.VideoCapture(0)
@@ -41,7 +41,7 @@ while True:
 
     # Run detection
     hand_results = hands.process(rgb)
-    # pose_results = pose.process(rgb)
+    pose_results = pose.process(rgb)
 
     # Draw hand landmarks (if detected)
     if hand_results.multi_hand_landmarks:
@@ -55,14 +55,14 @@ while True:
             )
 
     # Draw pose landmarks (if detected)
-    # if pose_results.pose_landmarks:
-    #     mp_drawing.draw_landmarks(
-    #         frame,
-    #         pose_results.pose_landmarks,
-    #         mp_pose.POSE_CONNECTIONS,
-    #         mp_drawing.DrawingSpec(color=(255, 255, 0), thickness=2, circle_radius=2),
-    #         mp_drawing.DrawingSpec(color=(0, 128, 255), thickness=2)
-    #     )
+    if pose_results.pose_landmarks:
+        mp_drawing.draw_landmarks(
+            frame,
+            pose_results.pose_landmarks,
+            mp_pose.POSE_CONNECTIONS,
+            mp_drawing.DrawingSpec(color=(255, 255, 0), thickness=2, circle_radius=2),
+            mp_drawing.DrawingSpec(color=(0, 128, 255), thickness=2)
+        )
 
     # Show output
     cv2.imshow("Real-Time Keypoint Detection (Side View)", frame)
