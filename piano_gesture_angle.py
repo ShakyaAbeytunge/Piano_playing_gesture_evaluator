@@ -63,6 +63,8 @@ mp_hands = mp.solutions.hands
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 
+WRIST_POINT = mp_hands.HandLandmark.WRIST
+
 # Pose keypoints you want
 POSE_POINTS = [
     mp_pose.PoseLandmark.LEFT_WRIST,
@@ -73,7 +75,6 @@ POSE_POINTS = [
 
 # Custom pose CONNEC TIONS
 POSE_CONNECTIONS = [
-    (mp_pose.PoseLandmark.LEFT_ELBOW, mp_pose.PoseLandmark.LEFT_WRIST),
     (mp_pose.PoseLandmark.RIGHT_ELBOW, mp_pose.PoseLandmark.RIGHT_WRIST)
 ]
 
@@ -81,7 +82,7 @@ POSE_CONNECTIONS = [
 hands = mp_hands.Hands(max_num_hands=1)
 pose = mp_pose.Pose()
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while True:
     ret, frame = cap.read()
@@ -139,6 +140,8 @@ while True:
         if pose_results.pose_landmarks:
             pm = pose_results.pose_landmarks.landmark
             elbow_x, elbow_y = int(pm[mp_pose.PoseLandmark.RIGHT_ELBOW].x * w), int(pm[mp_pose.PoseLandmark.RIGHT_ELBOW].y * h)
+        else:
+            elbow_x, elbow_y = int(lm[mp_hands.HandLandmark.WRIST].x * w), int(lm[mp_hands.HandLandmark.WRIST].y * h)
 
 
         # Points as tuples
@@ -153,10 +156,10 @@ while True:
         # Angle 2: wrist → knuckle → finger_tip
         angle_finger = clockwise_angle(WRIST, KNUCKLE, PIP)
 
-        cv2.putText(frame, f"Wrist Angle: {int(angle_wrist)}°", (10, 70),
+        cv2.putText(frame, f"Wrist Angle: {int(angle_wrist)}", (10, 70),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (162, 10, 105), 2)
 
-        cv2.putText(frame, f"Finger Angle: {int(angle_finger)}°", (10, 110),
+        cv2.putText(frame, f"Finger Angle: {int(angle_finger)}", (10, 110),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (162, 10, 105), 2)
 
         horizontal_threshold = 5  # adjust this value as needed
