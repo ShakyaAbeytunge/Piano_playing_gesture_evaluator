@@ -88,7 +88,7 @@ while True:
         treshold_height = 700  # adjust this value as needed
         norm_threshold = treshold_height / distance_wrist_knuckles
 
-        horizontal_threshold = 50  # adjust this value as needed
+        horizontal_threshold = 5  # adjust this value as needed
 
         if wrist_x - horizontal_threshold  < mfmcp_x and mfmcp_x - horizontal_threshold  < mfpip_x and mfpip_x - horizontal_threshold  < mft_x:
 
