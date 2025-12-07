@@ -41,6 +41,7 @@ def extract_keypoints(video_path):
 
 for video in glob.glob(f"{INPUT_FOLDER}/*.mp4"):
     kp = extract_keypoints(video)
-    np.save(f"{OUTPUT_FOLDER}/{os.path.splitext(video)[0]}.npy", kp)
+    video_name = os.path.splitext(os.path.basename(video))[0]
+    np.save(os.path.join(OUTPUT_FOLDER, f"{video_name}.npy"), kp)
 
 
