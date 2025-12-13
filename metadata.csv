@@ -35,9 +35,9 @@ PXL_20251208_143316159_normalized.npy,p004,shakya_phone,back_side,wrist_flexion
 PXL_20251208_143508937_normalized.npy,p004,shakya_phone,back_side,collapsed_knuckles
 PXL_20251208_143623987_normalized.npy,p004,shakya_phone,back_side,flat_hands
 IMG_6816_normalized.npy,p004,christelle_phone,front_side,neutral_hands
-IMG_6817_normalized.npy,p004,christelle_phone,front_side,collapsed_knuckles
-IMG_6818_normalized.npy,p004,christelle_phone,front_side,wrist_extension
-IMG_6819_normalized.npy,p004,christelle_phone,front_side,wrist_flexion
+IMG_6817_normalized.npy,p004,christelle_phone,front_side,wrist_extension
+IMG_6818_normalized.npy,p004,christelle_phone,front_side,wrist_flexion
+IMG_6819_normalized.npy,p004,christelle_phone,front_side,collapsed_knuckles
 IMG_6820_normalized.npy,p004,christelle_phone,front_side,flat_hands
 PXL_20251208_144619662_normalized.npy,p005,shakya_phone,back_side,neutral_hands
 PXL_20251208_144749833_normalized.npy,p005,shakya_phone,back_side,wrist_extension
@@ -45,7 +45,7 @@ PXL_20251208_144908272_normalized.npy,p005,shakya_phone,back_side,wrist_flexion
 PXL_20251208_145118745_normalized.npy,p005,shakya_phone,back_side,collapsed_knuckles
 PXL_20251208_145238580_normalized.npy,p005,shakya_phone,back_side,flat_hands
 IMG_5918_normalized.npy,p005,christelle_phone,front_side,neutral_hands
-IMG_5919_normalized.npy,p005,christelle_phone,front_side,collapsed_knuckles
-IMG_5920_normalized.npy,p005,christelle_phone,front_side,wrist_extension
-IMG_5921_normalized.npy,p005,christelle_phone,front_side,wrist_flexion
+IMG_5919_normalized.npy,p005,christelle_phone,front_side,wrist_extension
+IMG_5920_normalized.npy,p005,christelle_phone,front_side,wrist_flexion
+IMG_5921_normalized.npy,p005,christelle_phone,front_side,collapsed_knuckles
 IMG_5922_normalized.npy,p005,christelle_phone,front_side,flat_hands
