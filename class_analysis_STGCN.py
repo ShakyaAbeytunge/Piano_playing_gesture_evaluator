@@ -5,6 +5,8 @@ import torch.nn.functional as F
 import numpy as np
 import os
 from sklearn.metrics import confusion_matrix, accuracy_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 HAND_EDGES = [
     (0,1),(1,2),(2,3),(3,4),
@@ -35,7 +37,7 @@ test_loader = DataLoader(GraphDataset(test_files), batch_size=1, shuffle=False)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 A = build_adjacency(num_nodes=21, edges=HAND_EDGES)
 
-model_path = "best_models_stgcn/best_model_0.7550_5sec_stride2.pth"
+model_path = "best_models_stgcn/best_model_0.7246_4sec.pth"
 model = STGCN(num_classes=5, A=A).to(device)
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.eval()
@@ -54,6 +56,18 @@ with torch.no_grad():
 # Compute confusion matrix
 cm = confusion_matrix(all_labels, all_preds)
 acc_per_class = cm.diagonal() / cm.sum(axis=1)
+
+classes = ["Neutral Hands", "Wrist Flexion", "Wrist Extension", "Collapsed Knuckles", "Flat Hands"]
+
+plt.figure(figsize=(6,5))
+sns.heatmap(cm, annot=False, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.title("Confusion Matrix - ST-GCN on Test Set")
+
+# Save as image
+plt.savefig("confusion_matrix.png", bbox_inches='tight', dpi=300)
+plt.close()
 
 print("Per-class accuracy:", acc_per_class)
 print("Confusion matrix:\n", cm)
