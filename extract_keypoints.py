@@ -6,7 +6,7 @@ import glob
 
 mp_hands = mp.solutions.hands
 
-INPUT_FOLDER = "piano_set_1_processed"
+INPUT_FOLDER = "new_vid_processed"
 OUTPUT_FOLDER = "keypoints"
 
 if not os.path.exists(OUTPUT_FOLDER):
@@ -43,5 +43,3 @@ for video in glob.glob(f"{INPUT_FOLDER}/*.mp4"):
     kp = extract_keypoints(video)
     video_name = os.path.splitext(os.path.basename(video))[0]
     np.save(os.path.join(OUTPUT_FOLDER, f"{video_name}.npy"), kp)
-
-

@@ -189,7 +189,7 @@ for kp_file in glob.glob(f"{INPUT_FOLDER}/*.npy"):
         kp_name = os.path.splitext(os.path.basename(kp_file))[0]
 
         # Save PROCESSED for training
-        np.save(os.path.join(OUTPUT_FOLDER_1, f"{kp_name}_processed.npy"), processed)
+        np.save(os.path.join(OUTPUT_FOLDER_1, f"{kp_name}.npy"), processed)
 
         # Save CSV for human-readable inspection (processed)
         df = pd.DataFrame(processed.reshape(processed.shape[0], -1))
@@ -198,7 +198,7 @@ for kp_file in glob.glob(f"{INPUT_FOLDER}/*.npy"):
         # Save ORIGINAL in CSV if possible
         if orig_resh is not None:
             df_orig = pd.DataFrame(orig_resh)
-            df_orig.to_csv(os.path.join(OUTPUT_FOLDER_1, f"{kp_name}_original.csv"), index=False)
+            df_orig.to_csv(os.path.join(OUTPUT_FOLDER_2, f"{kp_name}_original.csv"), index=False)
 
         print(f"Saved: {kp_name}_processed.npy + {kp_name}_processed.csv (+ original csv if available)")
 

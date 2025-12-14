@@ -2,8 +2,8 @@ import os
 import subprocess
 
 # -------- USER SETTINGS --------
-INPUT_FOLDER = "piano_set_1_raw"
-OUTPUT_FOLDER = "piano_set_1_processed"
+INPUT_FOLDER = "new_vid"
+OUTPUT_FOLDER = "new_vid_processed"
 
 TARGET_WIDTH = 1280
 TARGET_HEIGHT = 720

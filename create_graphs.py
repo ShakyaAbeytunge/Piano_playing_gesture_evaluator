@@ -9,8 +9,8 @@ OUTPUT_FOLDER = "dataset_graphs"
 META_FILE = "metadata.csv"
 
 FPS = 30
-WINDOW = FPS * 5       # 5 seconds
-STRIDE = int(WINDOW * 0.4)    # 60% overlap
+WINDOW = FPS * 4       # 4 seconds
+STRIDE = int(WINDOW * 0.2)    # 80% overlap
 
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
