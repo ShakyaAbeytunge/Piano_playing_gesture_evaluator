@@ -46,10 +46,20 @@ python STGCN/preprocessing/ffmpeg_processor.py \
     --input_folder path/to/raw_videos \
     --output_folder normalized_videos
 
+---
+
+### 1. Video Normalization
+
+**Script:** `ffmpeg_processor.py`
+
+**Command**
+```bash
 python STGCN/preprocessing/extract_keypoints.py \
     --input_folder normalized_videos \
     --output_folder keypoints
 
+**Command**
+```bash
 python STGCN/preprocessing/normalizing_keypoints.py \
     --input_folder keypoints \
     --output_folder_kps normalized_keypoints_npy
