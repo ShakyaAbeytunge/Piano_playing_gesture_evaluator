@@ -18,6 +18,8 @@ While multiple models are included, this repository primarily provides a **ready
 
 The guide below explains how to preprocess raw videos to generate inputs compatible with our models.
 
+First, download the dataset from [this drive folder](https://drive.google.com/drive/folders/1feeNVbfy7ozpBxeAeLsTV9Qh-aeMloA_?usp=sharing), and place the `videos` inside the `preprocessing` folder of this repository.
+
 To ensure consistent and reliable performance, raw piano-playing videos must be processed through several preprocessing stages. All preprocessing scripts are located in:
 
 The preprocessing pipeline consists of three main steps:
@@ -97,6 +99,7 @@ Normalized .npy keypoint files ready for ST-GCN input.
 ---
 
 ## Training ST-GCN
+
 First, move your `normalized_keypoints_npy` folder to `models/STGCN/`. And change your current directory in bash to `models/STGCN/`.
 
 

@@ -200,41 +200,6 @@ while True:
                 cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
 
-
-        # calculate distance between wrist and middle_finger_mcp
-        # distance_wrist_knuckles = ((wrist_x - mfmcp_x) ** 2 + (wrist_y - mfmcp_y) ** 2) ** 0.5
-        # # print(f"Distance Wrist to Middle Finger MCP: {distance_wrist_knuckles}")
-
-        # # testing a threshold for the different between the wrist and middle_finger_mcp heights
-        # treshold_height = 700  # adjust this value as needed
-        # norm_threshold = treshold_height / distance_wrist_knuckles
-
-        # horizontal_threshold = 5  # adjust this value as needed
-
-        # if wrist_x - horizontal_threshold  < mfmcp_x and mfmcp_x - horizontal_threshold  < mfpip_x and mfpip_x - horizontal_threshold  < mft_x:
-
-        #     if mfmcp_y > mfpip_y and mft_y < wrist_y:
-        #         cv2.putText(frame, "Collapsed Knuckles", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        #     elif wrist_y + norm_threshold < mfmcp_y:
-        #         if wrist_y < mfpip_y:
-        #             cv2.putText(frame, "Wrist Flexion", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        #         else:
-        #             cv2.putText(frame, "No match 1", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 52, 0), 2)
-        #     elif wrist_y - norm_threshold > mfmcp_y:
-        #         if wrist_y > mfpip_y:
-        #             cv2.putText(frame, "Wrist Extension", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        #         else:
-        #             cv2.putText(frame, "Neutral Wrist", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        #     elif mfmcp_y < mfpip_y and mfpip_y < mft_y:   
-        #         cv2.putText(frame, "Neutral Wrist", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        #     else:
-        #         cv2.putText(frame, "you are not playing!", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 63), 2)
-        # else:
-        #     cv2.putText(frame, "Adjust Hand Position", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-
-
-        
-
     cv2.imshow("Custom Keypoints + Lines", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
