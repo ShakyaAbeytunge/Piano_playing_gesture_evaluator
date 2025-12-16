@@ -8,12 +8,6 @@ from torch.utils.data import DataLoader
 from model.STGCN_model import STGCN, GraphDataset
 import argparse
 
-
-DATA_ROOT = "dataset"
-
-all_players = ["p001","p002", "p003", "p004","p005", "p006"]
-player_files = {p: sorted(glob.glob(os.path.join(DATA_ROOT, p, "*.npz"))) for p in all_players}
-
 # ---------------- Graph ----------------
 HAND_EDGES = [
     (0,1),(1,2),(2,3),(3,4),
@@ -32,19 +26,35 @@ def build_adjacency(num_nodes, edges):
     np.fill_diagonal(A, 1)
     return A
 
-# ---------------- Training ----------------
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-A = build_adjacency(21, HAND_EDGES)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_folder", type=str, required=True, help="Path to the folder containing graph .npz files")
+    parser.add_argument("--num_epochs", type=int, default=100, help="Number of training epochs")
+    parser.add_argument("--batch_size", type=int, default=8, help="Batch size for training")
+    parser.add_argument("--learning_rate", type=float, default=5e-4, help="Learning rate for optimizer")
+    parser.add_argument("--model_save_folder", type=str, default="best_models", help="Folder to save the best model")
+    args = parser.parse_args()
 
-num_epochs = 80
-batch_size = 8
-num_classes = 5
+    data_folder = args.data_folder
+    num_epochs = args.num_epochs
+    batch_size = args.batch_size
+    learning_rate = args.learning_rate
+    model_save_folder = args.model_save_folder
 
-cv_val_accs = []
-
-for val_player in all_players:
-    print(f"=== CV Fold: val_player={val_player} ===")
+    os.makedirs(model_save_folder, exist_ok=True)
     
+    # ---------------- Load Data ----------------
+    all_players = ["p001","p002", "p003", "p004","p005", "p006"]
+    player_files = {p: sorted(glob.glob(os.path.join(data_folder, p, "*.npz"))) for p in all_players}
+
+    # ---------------- Training ----------------
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    A = build_adjacency(21, HAND_EDGES)
+
+    num_classes = 5
+
+    val_player = "p005"
+        
     # Split files
     val_files = player_files[val_player]
     train_files = [f for p in all_players if p != val_player for f in player_files[p]]
@@ -54,7 +64,7 @@ for val_player in all_players:
 
     # Initialize model for each fold
     model = STGCN(num_classes=num_classes, A=A).to(device)
-    optimizer = optim.Adam(model.parameters(), lr=5e-4, weight_decay=1e-4)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-4)
     criterion = nn.CrossEntropyLoss()
 
     # Early stopping parameters
@@ -98,7 +108,7 @@ for val_player in all_players:
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             no_improve_count = 0
-            torch.save(model.state_dict(), f"best_model_{val_player}.pth")
+            torch.save(model.state_dict(), os.path.join(model_save_folder, f"best_model_{best_val_acc:.4f}.pth"))
         else:
             no_improve_count += 1
 
@@ -108,11 +118,6 @@ for val_player in all_players:
             print(f"Early stopping at epoch {epoch+1}, best val acc={best_val_acc:.4f}")
             break
 
-
-    cv_val_accs.append(best_val_acc)
-    print(f"Best Val Acc for {val_player}: {best_val_acc:.4f}")
-
-print("=== Cross-Validation Summary ===")
-for p, acc in zip(all_players, cv_val_accs):
-    print(f"{p}: {acc:.4f}")
-print(f"Mean CV Val Acc: {np.mean(cv_val_accs):.4f}")
+        print(f"Best accuracy so far: {best_val_acc:.4f}")
+    
+print("Training complete. Best Val Acc:", best_val_acc)

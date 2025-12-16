@@ -18,7 +18,7 @@ While multiple models are included, this repository primarily provides a **ready
 
 The guide below explains how to preprocess raw videos to generate inputs compatible with our models.
 
-First, download the dataset from [this drive folder](https://drive.google.com/drive/folders/1feeNVbfy7ozpBxeAeLsTV9Qh-aeMloA_?usp=sharing), and place the `videos` inside the `preprocessing` folder of this repository.
+First, download the dataset from [this drive folder](https://drive.google.com/drive/folders/1feeNVbfy7ozpBxeAeLsTV9Qh-aeMloA_?usp=sharing), and place the `videos` folder inside the `preprocessing` folder of this repository. You can also find the `metadata.csv` (which is needed for training dataset preparation) and `player_metadata.csv` in the same location
 
 To ensure consistent and reliable performance, raw piano-playing videos must be processed through several preprocessing stages. All preprocessing scripts are located in:
 
@@ -101,6 +101,49 @@ Normalized .npy keypoint files ready for ST-GCN input.
 ## Training ST-GCN
 
 First, move your `normalized_keypoints_npy` folder to `models/STGCN/`. And change your current directory in bash to `models/STGCN/`.
+
+```bash
+cd models/STGCN/
+```
+
+Then run the `create_dataset.py`, which segments keypoint sequences into fixed-length temporal windows and assigns class labels for each sample. The dataset will be struture by player (creating folder for each player).
+
+**Command**
+
+```bash
+python create_dataset.py \
+  --input_folder path/to/keypoints \
+  --output_folder path/to/output_dataset \
+  --meta_file path/to/metadata.csv
+```
+
+Then you can train the ST-GCN for the dataset by running:
+
+```bash
+python train.py \
+  --data_folder path/to/output_dataset
+```
+
+The default `--num_epochs` = 100, `--learning_rate` = 5-e4, and `--batch_size` = 8 (best for training the model). The best model will be saved into the `best_models` folder.
+
+---
+
+## Running the application
+
+Now, you can run the Piano Hands Application with the trained model checkpoint by running the following command. The default web camera of your device will be used by the application.
+
+```bash
+python train.py \
+  --model_path path/to/model_checkpoint
+```
+
+Press `q` to quit the application at any time.
+
+
+
+
+
+
 
 
 

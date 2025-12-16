@@ -74,22 +74,6 @@ print("Confusion matrix:\n", cm)
 
 classes = ["Good Posture", "Wrist Flexion", "Wrist Extension", "Collapsed Knuckles", "Flat Hands"]
 
-# print("\\begin{tabular}{lcc}")
-# print("\\hline")
-# print("Class & Accuracy & Most confused with \\\\")
-# print("\\hline")
-# for i, cls in enumerate(classes):
-#     # Find the class it's most confused with
-#     row = cm[i]
-#     row[i] = 0  # ignore correct predictions
-#     if row.sum() == 0:
-#         confused_with = "-"
-#     else:
-#         confused_with = classes[row.argmax()]
-#     print(f"{cls} & {acc_per_class[i]*100:.1f}\\% & {confused_with} \\\\")
-# print("\\hline")
-# print("\\end{tabular}")
-
 for i, cls in enumerate(classes):
     # Find the class it's most confused with
     row = cm[i]

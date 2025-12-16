@@ -11,7 +11,7 @@ def create_dataset(input_folder, output_folder, meta_file, fps=30, window_sec=4,
     os.makedirs(output_folder, exist_ok=True)
 
     # create player folders
-    for player in ["p001", "p002", "p003", "p004", "p005", "p006"]:
+    for player in ["p001", "p002", "p003", "p004", "p005"]:
         os.makedirs(os.path.join(output_folder, player), exist_ok=True)
 
     # ---------------- LOAD METADATA ----------------
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     # ---------------- PARSE ARGS ----------------
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_folder", type=str, required=True, help="Path to input folder containing keypoint .npy files")
-    parser.add_argument("--output_folder", type=str, required=True, help="Path to output folder to save dataset")
+    parser.add_argument("--output_folder", type=str, default="dataset", help="Path to output folder for graph .npz files")
     parser.add_argument("--meta_file", type=str, required=True, help="Path to metadata CSV file")
     parser.add_argument("--fps", type=int, default=DEFAULT_FPS, help="Frames per second of the keypoint data")
     parser.add_argument("--window_sec", type=int, default=DEFAULT_WINDOW_SEC, help="Window size in seconds")
