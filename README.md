@@ -133,7 +133,7 @@ The default `--num_epochs` = 100, `--learning_rate` = 5-e4, and `--batch_size` =
 Now, you can run the Piano Hands Application with the trained model checkpoint by running the following command. The default web camera of your device will be used by the application.
 
 ```bash
-python train.py \
+python piano_hands_app.py \
   --model_path path/to/model_checkpoint
 ```
 
