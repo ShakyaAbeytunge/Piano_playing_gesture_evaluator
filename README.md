@@ -12,14 +12,13 @@ All implementations are preserved for reproducibility and comparison purposes.
 
 While multiple models are included, this repository primarily provides a **ready-to-use pipeline for the best-performing model**, a **Spatial–Temporal Graph Convolutional Network (ST-GCN)**. This model leverages the natural graph structure of the human hand and temporal motion dynamics, enabling robust generalization across unseen players.
 
-The guide below explains how to preprocess raw videos to generate inputs compatible with the **ST-GCN-based posture evaluation pipeline**.
-
 ---
 
-## Preprocessing Pipeline (ST-GCN)
+## Preprocessing Pipeline
+
+The guide below explains how to preprocess raw videos to generate inputs compatible with our models.
 
 To ensure consistent and reliable performance, raw piano-playing videos must be processed through several preprocessing stages. All preprocessing scripts are located in:
-
 
 The preprocessing pipeline consists of three main steps:
 
@@ -45,21 +44,52 @@ Videos recorded using different devices may vary in resolution, frame rate, and 
 python STGCN/preprocessing/ffmpeg_processor.py \
     --input_folder path/to/raw_videos \
     --output_folder normalized_videos
+```
+
+**Output**
+
+Normalized .mp4 videos saved in the specified output directory.
 
 ---
 
-### 1. Video Normalization
+### 2. Hand Keypoint Extraction
 
-**Script:** `ffmpeg_processor.py`
+**Script:** `extract_keypoints.py`
+
+This step extracts hand landmarks per frame using MediaPipe Hands. Each frame contains 21 keypoints with (x, y) image coordinates and a relative depth value, forming a 2.5D hand representation.
 
 **Command**
 ```bash
 python STGCN/preprocessing/extract_keypoints.py \
     --input_folder normalized_videos \
     --output_folder keypoints
+```
+
+**Output**
+
+One .npy file per video containing raw hand keypoints across all frames.
+
+### 3. Keypoint Normalization
+
+**Script:** `normalizing_keypoints.py`
+
+Raw keypoints are normalized using a hand-based bounding box strategy. This step reduces sensitivity to:
+
+- Camera distance
+- Hand size
+- Viewpoint variation
+
+The output is directly compatible with ST-GCN training and inference.
 
 **Command**
 ```bash
 python STGCN/preprocessing/normalizing_keypoints.py \
     --input_folder keypoints \
     --output_folder_kps normalized_keypoints_npy
+```
+
+**Output**
+
+Normalized .npy keypoint files ready for ST-GCN input.
+
+
