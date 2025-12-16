@@ -89,7 +89,7 @@ The output is directly compatible with ST-GCN training and inference.
 ```bash
 python preprocessing/normalizing_keypoints.py \
     --input_folder keypoints \
-    --output_folder_kps normalized_keypoints_npy
+    --output_folder_kps keypoints_new
 ```
 
 **Output**
@@ -100,7 +100,7 @@ Normalized .npy keypoint files ready for ST-GCN input.
 
 ## Training ST-GCN
 
-First, move your `normalized_keypoints_npy` folder to `models/STGCN/`. And change your current directory in bash to `models/STGCN/`.
+First, move your `keypoints_new` folder to `models/STGCN/`. And change your current directory in bash to `models/STGCN/`.
 
 ```bash
 cd models/STGCN/

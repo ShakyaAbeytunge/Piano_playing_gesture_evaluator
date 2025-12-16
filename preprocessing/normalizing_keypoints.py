@@ -150,7 +150,7 @@ def process_keypoint_file(npy_path):
 
 if __name__ == "__main__":
 
-    OUTPUT_FOLDER_kps = "normalized_keypoints_npy"
+    OUTPUT_FOLDER_kps = "keypoints_new"
     OUTPUT_FOLDER_csv_original = "normalized_keypoints_csv_original"  
     OUTPUT_FOLDER_csv_processed = "normalized_keypoints_csv_processed"
     
