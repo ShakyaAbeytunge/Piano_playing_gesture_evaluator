@@ -19,9 +19,10 @@ PATIENCE = 10
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_SAVE_PATH = "models/CNN/ST-CNN/best_model/stcnn_hand_posture_best.pt"
 
-X_FILE = "X_tcnn.npy"
-Y_FILE = "y_tcnn.npy"
-P_FILE = "players.npy"
+X_PART1 = "models/CNN/dataset/X_tcnn_part1.npy"
+X_PART2 = "models/CNN/dataset/X_tcnn_part2.npy"
+Y_FILE = "models/CNN/dataset/y_tcnn.npy"
+P_FILE = "models/CNN/dataset/players.npy"
 
 T, J, C = 120, 21, 3  # frames, joints, coords
 
@@ -154,12 +155,13 @@ def evaluate(model, loader, criterion):
     )
 
 def main():
-    print("Device:", DEVICE)
+    
+    X1 = np.load(X_PART1, mmap_mode="r")
+    X2 = np.load(X_PART2, mmap_mode="r")
+    X = np.concatenate([X1, X2], axis=0)
 
-    X = np.load(X_FILE)
     y = np.load(Y_FILE)
     players = np.load(P_FILE)
-
     print("X:", X.shape, "y:", y.shape, "players:", players.shape)
 
     train_mask = np.isin(players, TRAIN_PLAYERS)

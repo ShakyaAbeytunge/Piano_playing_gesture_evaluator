@@ -42,9 +42,18 @@ class TemporalCNN(nn.Module):
         return self.fc(x)
 
 
-X = np.load("models/CNN/dataset/X_tcnn.npy")
+X1 = np.load("models/CNN/dataset/X_tcnn_part1.npy", mmap_mode="r")
+X2 = np.load("models/CNN/dataset/X_tcnn_part2.npy", mmap_mode="r")
+
+X = np.concatenate([X1, X2], axis=0)
+
 y = np.load("models/CNN/dataset/y_tcnn.npy")
-players = np.load("models/CNN/dataset/players.npy")  
+players = np.load("models/CNN/dataset/players.npy")
+
+print("X:", X.shape)
+print("y:", y.shape)
+print("players:", players.shape)
+
 
 TRAIN_PLAYERS = ["p001", "p002", "p003"]
 VAL_PLAYERS   = ["p004"]
