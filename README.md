@@ -41,7 +41,7 @@ Videos recorded using different devices may vary in resolution, frame rate, and 
 
 **Command**
 ```bash
-python STGCN/preprocessing/ffmpeg_processor.py \
+python preprocessing/ffmpeg_processor.py \
     --input_folder path/to/raw_videos \
     --output_folder normalized_videos
 ```
@@ -60,7 +60,7 @@ This step extracts hand landmarks per frame using MediaPipe Hands. Each frame co
 
 **Command**
 ```bash
-python STGCN/preprocessing/extract_keypoints.py \
+python preprocessing/extract_keypoints.py \
     --input_folder normalized_videos \
     --output_folder keypoints
 ```
@@ -68,6 +68,8 @@ python STGCN/preprocessing/extract_keypoints.py \
 **Output**
 
 One .npy file per video containing raw hand keypoints across all frames.
+
+---
 
 ### 3. Keypoint Normalization
 
@@ -83,7 +85,7 @@ The output is directly compatible with ST-GCN training and inference.
 
 **Command**
 ```bash
-python STGCN/preprocessing/normalizing_keypoints.py \
+python preprocessing/normalizing_keypoints.py \
     --input_folder keypoints \
     --output_folder_kps normalized_keypoints_npy
 ```
@@ -91,5 +93,14 @@ python STGCN/preprocessing/normalizing_keypoints.py \
 **Output**
 
 Normalized .npy keypoint files ready for ST-GCN input.
+
+---
+
+## Training ST-GCN
+First, move your `normalized_keypoints_npy` folder to `models/STGCN/`. And change your current directory in bash to `models/STGCN/`.
+
+
+
+
 
 
